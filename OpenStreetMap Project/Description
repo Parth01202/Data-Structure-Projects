@@ -1,0 +1,111 @@
+### OpenStreetMap Project Description
+
+The **OpenStreetMap Project** leverages real-world geographic data to implement a navigation and pathfinding application. Using the OpenStreetMap dataset, the project creates a graph-based representation of map features such as sidewalks, buildings, and intersections, allowing users to calculate routes, distances, and intermediate meeting points. The program integrates key graph algorithms for pathfinding and spatial calculations, ensuring accurate and efficient results.
+
+---
+
+### Key Components:
+
+#### 1. **Graph Representation (`graph.h`)**
+The project employs a directed graph class template to model the relationships between nodes (intersections, buildings) and edges (sidewalks, paths). The graph is implemented using an adjacency list to ensure efficiency in storage and operations.
+
+**Features:**
+- **Vertices and Edges:**
+  - Vertices represent nodes like intersections or building coordinates.
+  - Directed edges between vertices represent navigable paths or sidewalks, with associated weights (distances).
+- **Operations:**
+  - Add vertices and edges dynamically.
+  - Retrieve edge weights and neighbors efficiently.
+  - Calculate the total number of vertices and edges in the graph.
+- **Template Design:** 
+  - Supports customizable vertex (`VertexT`) and weight (`WeightT`) types, ensuring flexibility for various data models.
+
+#### 2. **Graph Construction (`buildGraph` function)**
+The `buildGraph` function constructs the graph using OpenStreetMap data, which includes nodes, sidewalks (footways), and buildings.
+
+**Process:**
+- **Nodes:** Each map node is added as a vertex.
+- **Sidewalks:** Sidewalks are represented as edges between consecutive nodes, with weights calculated using the geographic distance between points.
+- **Buildings:** Buildings are added as vertices, connected to nearby sidewalk nodes within a specified distance threshold.
+
+**Statistics:**
+- Tracks and counts the number of sidewalk edges and building-related edges added to the graph.
+
+---
+
+#### 3. **Shortest Path Calculation (`dijkstra` function)**
+The program uses Dijkstra's algorithm to find the shortest path between two nodes in the graph, considering edge weights as distances.
+
+**Features:**
+- Accounts for nodes to be ignored during the search.
+- Supports reconstruction of the shortest path using a `prev` array.
+- Efficiently handles edge cases, such as unreachable destinations.
+
+**Output:**
+- Returns the shortest path as a sequence of node IDs.
+- Calculates the total path length for visualization or analysis.
+
+---
+
+#### 4. **User Interaction (`application` function)**
+The application interface allows users to input queries and calculate routes.
+
+**Workflow:**
+1. **Input:** 
+   - Users specify buildings for two individuals using partial names or abbreviations.
+   - The application identifies the full building name and geographic coordinates for both inputs.
+2. **Destination Calculation:**
+   - Determines an intermediate meeting point by calculating the geographic center between the two individuals and finding the nearest building.
+3. **Pathfinding:**
+   - Computes the shortest path from each individual’s building to the destination using Dijkstra’s algorithm.
+   - Outputs the paths, their distances, and detailed instructions.
+
+**Error Handling:**
+- Alerts users if a building cannot be found or if paths to the destination are unavailable.
+
+---
+
+### Highlights of the Implementation:
+
+1. **Graph Class (`graph.h`):**
+   - **Efficiency:** Implements operations like adding vertices, adding edges, and retrieving neighbors with optimal complexity.
+   - **Scalability:** Can handle large datasets typical of OpenStreetMap scenarios.
+
+2. **Distance Calculations (`dist.h`):**
+   - Integrates geographic distance computations to determine weights for edges.
+
+3. **Building and Sidewalk Integration:**
+   - Models real-world features like sidewalks and buildings as part of the graph, ensuring a close mapping to the actual dataset.
+
+4. **User-Friendly Application:**
+   - Provides a clean interface for users to specify inputs and retrieve results.
+   - Handles edge cases, such as partial matches or missing buildings, gracefully.
+
+---
+
+### Technical Features:
+
+- **Graph-Based Representation:**
+  - Nodes and edges derived from OpenStreetMap data.
+  - Dynamic edge creation for sidewalks and building connections.
+
+- **Pathfinding Algorithms:**
+  - Dijkstra's algorithm for shortest path calculations.
+  - Real-time path reconstruction and visualization.
+
+- **Real-World Constraints:**
+  - Incorporates maximum distance thresholds for connecting buildings to sidewalks.
+  - Ensures paths are realistic and aligned with geographic features.
+
+- **Error Handling:**
+  - Validates user inputs, building names, and graph connectivity.
+
+---
+
+### Potential Enhancements:
+- **Real-Time Navigation:** Add GPS integration for live tracking.
+- **Interactive Visualization:** Use libraries like `SFML` or `OpenGL` for graphical map rendering.
+- **Multi-Person Navigation:** Extend to handle more than two individuals and calculate optimal meeting points.
+- **Dynamic Updates:** Allow users to modify or add nodes and edges dynamically during execution.
+
+This project successfully integrates geographic data with graph-based algorithms to create a practical and efficient navigation system. Let me know if you'd like further clarification or additional details!
