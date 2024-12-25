@@ -1,0 +1,72 @@
+### Description of Your Search Project
+
+The **Search Project** implements a basic text-based search engine using the C++ programming language. The project leverages a combination of tokenization, inverted indexing, and set operations to process and match user queries against a database of text documents. It focuses on providing a robust, efficient, and user-friendly interface for retrieving relevant information.
+
+---
+
+#### **Features:**
+
+1. **Text Cleaning and Tokenization:**
+   - Removes leading and trailing punctuation.
+   - Converts all text to lowercase for case-insensitive matching.
+   - Discards non-alphabetic characters unless part of a valid token.
+   - Ensures only meaningful words are indexed for search.
+
+2. **Inverted Index Construction:**
+   - Reads a file containing pairs of URLs and corresponding content.
+   - Extracts unique, cleaned tokens from the content.
+   - Maps tokens to a set of URLs where they appear.
+   - Provides efficient data retrieval by associating each word with its respective documents.
+
+3. **Search Query Processing:**
+   - Supports various types of queries:
+     - **Simple Queries:** Retrieves all pages containing a given word.
+     - **Union Queries:** Combines results for multiple words (e.g., "cat dog").
+     - **Intersection Queries:** Finds pages containing all specified words using the `+` prefix (e.g., "+cat +dog").
+     - **Negation Queries:** Excludes pages containing specified words using the `-` prefix (e.g., "cat -dog").
+   - Performs set operations like union, intersection, and difference to refine results dynamically.
+
+4. **Interactive Command Loop:**
+   - Accepts user input queries repeatedly until the user chooses to quit.
+   - Displays the number of matching pages and their URLs.
+   - Handles invalid or empty input gracefully.
+
+---
+
+#### **How It Works:**
+
+1. **Data Preprocessing:**
+   - The `cleanToken` function ensures that each token is cleaned and standardized before being indexed or searched.
+
+2. **Indexing:**
+   - The `buildIndex` function reads the input file, tokenizes the content, and constructs the inverted index.
+   - Each unique term is associated with a set of URLs, ensuring efficient lookup.
+
+3. **Query Matching:**
+   - The `findQueryMatches` function processes user queries by:
+     - Cleaning tokens in the query string.
+     - Using set operations to combine, intersect, or exclude results based on query syntax.
+
+4. **User Interaction:**
+   - The `searchEngine` function orchestrates the interaction loop, allowing users to enter queries and view matching results or exit the program.
+
+---
+
+#### **Key Algorithms and Concepts:**
+- **Inverted Index:** Efficiently maps terms to the URLs where they appear, enabling fast search operations.
+- **Set Operations:** Combines results using union, intersection, and difference to handle complex query logic.
+- **Tokenization and Cleaning:** Ensures data consistency and eliminates irrelevant or redundant tokens.
+- **File I/O:** Processes large datasets stored in files, building an index dynamically.
+
+---
+
+#### **Possible Enhancements:**
+- **Partial Matching:** Implement fuzzy matching to handle typos or similar words.
+- **Ranking Results:** Introduce a ranking system based on word frequency or page relevance.
+- **Wildcard Queries:** Support advanced search syntax with wildcard characters (e.g., "ca*").
+- **Performance Optimization:** Use data structures like tries or hash maps for faster indexing and retrieval.
+- **Multi-Threading:** Parallelize the indexing process for large datasets.
+
+---
+
+This project is an excellent practical application of data structures, file processing, and algorithmic problem-solving, providing a foundational understanding of how search engines work. Let me know if you'd like additional details or further enhancements to this description!
